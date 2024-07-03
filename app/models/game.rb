@@ -1,5 +1,5 @@
 class Game
-  attr_reader :acting_player, :board, :moves
+  attr_accessor :acting_player, :board, :move_history, :capture_chain, :status
 
   def initialize
     @acting_player = :white
@@ -7,6 +7,7 @@ class Game
     @move_history = []
     @capture_chain = false
   end
+  # before_create :generate_access_token
 
   def valid_move?(player, piece, pieces_between, move_type, from, to)
     return :from_coordinates_out_of_bounds unless board.in_grid_boundaries?(from)
@@ -28,9 +29,27 @@ class Game
   def valid_capture?(move_type, piece, pieces_between)
     return false if pieces_between.any?{ |x| x.color == piece.color }
     return false if @capture_chain && pieces_between.empty?
-    return false if move_type == :capture_move and pieces_between.empty?
+    return false if move_type == :capture_move && pieces_between.empty?
 
     true
+  end
+
+  def possible_moves(piece)
+    directions = piece.is_king ? [[1, 1], [1, -1], [-1, 1], [-1, -1]] : [[1, 1], [1, -1]]
+    directions.select do |row_dir, col_dir|
+      new_row = piece.coordinates[0] + row_dir
+      new_col = piece.coordinates[1] + col_dir
+      in_bounds = @board.in_grid_boundaries?([new_row, new_col])
+      in_bounds && @board.find_piece([new_row, new_col]).nil?
+    end
+  end
+
+  def status
+    return 'waiting for opponent' if second_player.nil?
+    return "#{acting_player} turn" unless game_over?
+
+    winning_player = move_history.last[0]
+    "#{winning_player} won"
   end
 
   def move(player, from, to)
@@ -48,11 +67,26 @@ class Game
       set_capture_chain(move_type, to)
       rotate_acting_player unless @capture_chain
 
+      # check_game_end
+
       true
     else
       valid_move_result
     end
   end
+
+  # def check_game_end
+  #   white_pieces = @board.pieces_count(:white)
+  #   black_pieces = @board.pieces_count(:black)
+
+  #   if white_pieces.zero?
+  #     self.status = 'Player_2_won'
+  #     save
+  #   elsif black_pieces.zero?
+  #     self.status = 'Player_1_won'
+  #     save
+  #   end
+  # end
 
   private
 

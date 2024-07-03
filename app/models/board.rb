@@ -17,6 +17,25 @@ class Board
     end
   end
 
+  def board_state
+    board_state = {}
+    @board.grid.each_with_index do |row, row_index|
+      row.each_with_index do |cell, col_index|
+        if cell
+          board_state[[row_index, col_index]] = {
+            color: cell.color,
+            is_king: cell.is_king
+          }
+        end
+      end
+    end
+    board_state
+  end
+
+  def pieces_count(color)
+    @grid.flatten.compact.count { |piece| piece.color == color }
+  end
+
   def remove_piece(coordinates)
     row, col = coordinates
     @grid[row][col] = nil
