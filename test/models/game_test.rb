@@ -24,7 +24,7 @@ class GameTest < ActiveSupport::TestCase
   end
 
   test 'from coordinates out of bound validation' do
-    assert_equal :from_coordinates_out_of_bounds, Game.new.move(:white, [-1,-1], [0, 0])
+    assert_equal :from_coordinates_out_of_bounds, Game.new.move(:white, [-1, -1], [0, 0])
     assert_equal :to_coordinates_out_of_bounds, Game.new.move(:white, [2, 7], [3, 9])
   end
 
