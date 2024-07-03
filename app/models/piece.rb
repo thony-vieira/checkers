@@ -13,7 +13,7 @@ class Piece
   end
 
   def to_s
-    return "w" if color == :white
+    return 'w' if color == :white
 
     'b'
   end

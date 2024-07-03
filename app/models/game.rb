@@ -8,7 +8,7 @@ class Game
     @capture_chain = false
   end
 
-  def valid_move?(piece, pieces_between, move_type, from, to)
+  def valid_move?(player, piece, pieces_between, move_type, from, to)
     return :from_coordinates_out_of_bounds unless board.in_grid_boundaries?(from)
 
     return :piece_not_found unless piece
@@ -19,25 +19,22 @@ class Game
 
     return :invalid_move if move_type == :invalid_move
     return :invalid_move if move_type == :king_move && !piece.is_king
-    return :invalid_move unless valid_direction?(move_type, piece, from, to)
-
-    if (move_type == :capture_move or move_type == :king_move) && !valid_capture?(move_type, piece, pieces_between)
-      return :invalid_move
-    end
+    return :invalid_move if move_type == :move && !valid_direction?(move_type, piece, from, to)
+    return :invalid_move if move_type == :capture_move && !valid_capture?(move_type, piece, pieces_between)
 
     true
   end
 
   def valid_capture?(move_type, piece, pieces_between)
-    return false if pieces_between.any? { |x| x.color == piece.color }
+    return false if pieces_between.any?{ |x| x.color == piece.color }
     return false if @capture_chain && pieces_between.empty?
-    return false if move_type == :capture_move && pieces_between.empty?
+    return false if move_type == :capture_move and pieces_between.empty?
 
     true
   end
 
   def move(player, from, to)
-    return :not_acting_player unless acting_player?(player)
+    return :not_acting_player unless is_acting_player?(player)
 
     piece = board.find_piece(from)
     pieces_between = board.find_pieces_between(from, to)
@@ -77,10 +74,11 @@ class Game
         return @capture_chain = true unless board.find_piece(next_coordinates)
       end
     end
+    @capture_chain = false
   end
 
   def find_max_edge(coordinates, direction, moves)
-    return coordinates if moves == 0
+    return coordinates if moves.zero?
 
     row, col = coordinates
     row_direction, col_direction = direction
@@ -94,7 +92,7 @@ class Game
     @move_history.push([player, from, to])
   end
 
-  def acting_player?(player)
+  def is_acting_player?(player)
     acting_player == player
   end
 
