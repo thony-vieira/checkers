@@ -67,7 +67,6 @@ class Game
       set_capture_chain(move_type, to)
       rotate_acting_player unless @capture_chain
 
-      # check_game_end
 
       true
     else
@@ -75,18 +74,16 @@ class Game
     end
   end
 
-  # def check_game_end
-  #   white_pieces = @board.pieces_count(:white)
-  #   black_pieces = @board.pieces_count(:black)
+  def check_game_end
+    white_pieces = @board.pieces_count(:white)
+    black_pieces = @board.pieces_count(:black)
 
-  #   if white_pieces.zero?
-  #     self.status = 'Player_2_won'
-  #     save
-  #   elsif black_pieces.zero?
-  #     self.status = 'Player_1_won'
-  #     save
-  #   end
-  # end
+    if white_pieces.zero?
+      self.status = 'Player_2_won'
+    elsif black_pieces.zero?
+      self.status = 'Player_1_won'
+    end
+  end
 
   private
 

@@ -113,21 +113,6 @@ class GameTest < ActiveSupport::TestCase
     assert game.move(:black, [2, 3], [4, 5])
   end
 
-  # test 'End game' do
-  #   game = Game.new
-  #   clear_board(game)
-  #   game.board.grid[0][1] = Piece.new(:white, [0, 1])
-  #   game.board.grid[7][0] = Piece.new(:black, [7, 0])
-
-  #   game.move(:white, [0, 1], [1, 2])
-  #   game.move(:black, [7, 0], [6, 1])
-  #   game.board.remove_piece([1, 2])
-
-  #   game.check_game_end
-
-  #   assert_equal 'player_2_won', game.status
-  # end
-
   private
 
   def clear_board(game)
