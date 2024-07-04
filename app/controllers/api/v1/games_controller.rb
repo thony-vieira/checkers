@@ -11,12 +11,12 @@ module Api
       def create
         game = Game.new
         game_id = SecureRandom.uuid
-        token = SecureRandom.hex(10)
-        @@games[game_id] = { game: game, player_1_token: token, player_2_token: nil }
-        render json: { game_id: game_id, token: token }
+        player_1_token = SecureRandom.hex(10)
+        player_2_token = SecureRandom.hex(10)
+        @@games[game_id] = { game: game, player_1_token: player_1_token,  player_2_token: player_2_token }
+        render json: { game_id: game_id, token: player_1_token, player_2_token: player_2_token }
       end
 
-      # POST /games/:id/join
       def join
         if @current_player == :white && @game.second_player.nil?
           @game.update(second_player: :black)
@@ -26,12 +26,12 @@ module Api
         end
       end
 
-      # GET /games/:id/state
+
       def state
         render json: @game.board.board_state
       end
 
-      # GET /games/:id/possible_moves
+
       def possible_moves
         piece = @game.board.find_piece(params[:coordinates])
         return render json: { error: 'Piece not found' }, status: :not_found unless piece
@@ -40,12 +40,12 @@ module Api
         render json: { moves: }
       end
 
-      # GET /games/:id/status
+
       def status
         render json: { status: @game.status }
       end
 
-      # POST /games/:id/move
+    
       def move
         from = params[:from]
         to = params[:to]
@@ -66,7 +66,7 @@ module Api
 
       def validate_player
   token = request.headers['Authorization']
-  Rails.logger.debug "Received token: #{token}"  # Verifique se o token está sendo recebido corretamente
+  Rails.logger.debug "Received token: #{token}"
 
   @current_player = if token == @game_data[:player_1_token]
                       :white

@@ -1,5 +1,5 @@
 class Game
-  attr_accessor :acting_player, :board, :move_history, :capture_chain, :status
+  attr_accessor :acting_player, :board, :move_history, :capture_chain
 
   def initialize
     @acting_player = :white
