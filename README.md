@@ -56,10 +56,10 @@ game = TextApi.new
 ```
 
 6. Instruçoes do jogo:
-   Peças brancas jogam primeiro. Os movimentos são alternados e realizaados por meio de comandos no console que indiquem a posição atual da peça e a posição final no tabuleiro , exemplo: D2 to C3.
-   Para capturar uma peça o jogador deverá indicar a célula de destino pulando a célula da peça capturada , exemplo: C3 to D5, a peça inimiga capturada sumirá do tabuleiro.
-   As capturas podem ser feitas sempre na diagonal, tanto para frente quanto para trás. Havendo mais de uma peça disponível para se capturar, é obrigatório realizar o movimento de captura das peças disponíveis.
-   Caso uma das pedras chegue na última linha do lado adversário, a peça será promovida a "Dama", tendo sua movimentação expandida para todo o tabuleiro, movimentando-se da mesma maneira, exemplo: B0 to G5.
-   A dama pode capturar uma peça e optar por não estacionar na celula imediatamente atrás dela, podendo avançar as celulas se o movimento for válido.
-   O movimento é valido se ele sempre avançar na direção das peças adversárias, se for sempre em diagonal e uma celula de distância nas celulas adjacentes frontais. Damas se movem tanto para frente, quanto para trás, porém sempre em diagonal.
+   * Peças brancas jogam primeiro. Os movimentos são alternados e realizaados por meio de comandos no console que indiquem a posição atual da peça e a posição final no tabuleiro , exemplo: D2 to C3.
+   * Para capturar uma peça o jogador deverá indicar a célula de destino pulando a célula da peça capturada , exemplo: C3 to D5, a peça inimiga capturada sumirá do tabuleiro.
+   * As capturas podem ser feitas sempre na diagonal, tanto para frente quanto para trás. Havendo mais de uma peça disponível para se capturar, é obrigatório realizar o movimento de captura das peças disponíveis.
+   * Caso uma das pedras chegue na última linha do lado adversário, a peça será promovida a "Dama", tendo sua movimentação expandida para todo o tabuleiro, movimentando-se da mesma maneira, exemplo: B0 to G5.
+   * A dama pode capturar uma peça e optar por não estacionar na celula imediatamente atrás dela, podendo avançar as celulas se o movimento for válido.
+   * O movimento é valido se ele sempre avançar na direção das peças adversárias, se for sempre em diagonal e uma celula de distância nas celulas adjacentes frontais. Damas se movem tanto para frente, quanto para trás, porém sempre em diagonal.
 
