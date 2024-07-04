@@ -17,7 +17,7 @@ Projeto de API de jogo de damas com regras oficiais de movimentação e capturas
   
 ## Requisitos
 
-Certifique-se de ter as seguintes dependências instaladas:
+Necessário:
 
 - Ruby 3.1.2;
 - Ruby on Rails 7.1.3.4.
