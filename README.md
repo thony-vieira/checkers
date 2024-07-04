@@ -49,6 +49,10 @@ rails server
 http://localhost:3000/api/v1/games
 ```
 
+```bash
+rails test
+```
+
 5. Para jogar por comando de console:
 
 ```bash
